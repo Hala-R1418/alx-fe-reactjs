@@ -1,5 +1,12 @@
 import { create } from 'zustand';
 
+const filterByTerm = (recipes, term) => {
+  if (!term) return recipes;
+  return recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(term.toLowerCase())
+  );
+};
+
 export const useRecipeStore = create((set, get) => ({
   recipes: [],
   filteredRecipes: [],
@@ -16,7 +23,7 @@ export const useRecipeStore = create((set, get) => ({
 
   deleteRecipe: (id) =>
     set((state) => {
-      const updatedRecipes = state.recipes.filter((recipe) => recipe.id !== id);
+      const updatedRecipes = state.recipes.filter((r) => r.id !== id);
       return {
         recipes: updatedRecipes,
         filteredRecipes: filterByTerm(updatedRecipes, state.searchTerm),
@@ -25,8 +32,8 @@ export const useRecipeStore = create((set, get) => ({
 
   updateRecipe: (updatedRecipe) =>
     set((state) => {
-      const updatedRecipes = state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+      const updatedRecipes = state.recipes.map((r) =>
+        r.id === updatedRecipe.id ? updatedRecipe : r
       );
       return {
         recipes: updatedRecipes,
@@ -46,10 +53,3 @@ export const useRecipeStore = create((set, get) => ({
       filteredRecipes: filterByTerm(recipes, state.searchTerm),
     })),
 }));
-
-const filterByTerm = (recipes, term) => {
-  if (!term) return recipes;
-  return recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(term.toLowerCase())
-  );
-};
