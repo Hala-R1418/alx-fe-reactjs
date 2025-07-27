@@ -1,24 +1,21 @@
-// src/recipeStore.js
-import create from 'zustand';
+import { create } from 'zustand';
 
-export const useRecipeStore = create((set) => ({
+const filterByTerm = (recipes, term) => {
+  if (!term) return recipes;
+  return recipes.filter((recipe) =>
+    recipe.title.toLowerCase().includes(term.toLowerCase())
+  );
+};
+
+export const useRecipeStore = create((set, get) => ({
   recipes: [],
+  filteredRecipes: [],
+  searchTerm: '',
+  favorites: [],            // <-- Added favorites state
+  recommendations: [],      // <-- Added recommendations state
+
   addRecipe: (newRecipe) =>
-    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
-  setRecipes: (recipes) => set({ recipes }),
-
-
-  updateRecipe: (updatedRecipe) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-      ),
-    })),
-
-  deleteRecipe: (id) =>
-    set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
-    })),
-
-  setRecipes: (recipes) => set({ recipes }),
-}));
+    set((state) => {
+      const updatedRecipes = [...state.recipes, newRecipe];
+      return {
+        recipes: upd
