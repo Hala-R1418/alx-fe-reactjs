@@ -11,39 +11,11 @@ export const useRecipeStore = create((set, get) => ({
   recipes: [],
   filteredRecipes: [],
   searchTerm: '',
-  favorites: [],
-  recommendations: [],
+  favorites: [],            // <-- Added favorites state
+  recommendations: [],      // <-- Added recommendations state
 
   addRecipe: (newRecipe) =>
     set((state) => {
       const updatedRecipes = [...state.recipes, newRecipe];
       return {
-        recipes: updatedRecipes,
-        filteredRecipes: filterByTerm(updatedRecipes, state.searchTerm),
-      };
-    }),
-
-  deleteRecipe: (id) =>
-    set((state) => {
-      const updatedRecipes = state.recipes.filter((r) => r.id !== id);
-      // Also remove from favorites if deleted
-      const updatedFavorites = state.favorites.filter((favId) => favId !== id);
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: filterByTerm(updatedRecipes, state.searchTerm),
-        favorites: updatedFavorites,
-      };
-    }),
-
-  updateRecipe: (updatedRecipe) =>
-    set((state) => {
-      const updatedRecipes = state.recipes.map((r) =>
-        r.id === updatedRecipe.id ? updatedRecipe : r
-      );
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: filterByTerm(updatedRecipes, state.searchTerm),
-      };
-    }),
-
-  set
+        recipes: upd
