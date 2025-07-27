@@ -1,3 +1,5 @@
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeList from './components/RecipeList';
 import RecipeDetails from './components/RecipeDetails';
@@ -9,7 +11,8 @@ function App() {
     <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px' }}>
       <h1>Recipe Sharing App</h1>
       <nav>
-        <Link to="/">Home</Link>
+        <Link to="/">Home</Link> | <Link to="/favorites">My Favorites</Link> |{' '}
+        <Link to="/recommendations">Recommendations</Link>
       </nav>
 
       <Routes>
@@ -24,6 +27,8 @@ function App() {
           }
         />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
+        <Route path="/favorites" element={<FavoritesList />} />
+        <Route path="/recommendations" element={<RecommendationsList />} />
       </Routes>
     </div>
   );

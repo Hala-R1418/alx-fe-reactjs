@@ -11,6 +11,8 @@ export const useRecipeStore = create((set, get) => ({
   recipes: [],
   filteredRecipes: [],
   searchTerm: '',
+  favorites: [],
+  recommendations: [],
 
   addRecipe: (newRecipe) =>
     set((state) => {
@@ -24,9 +26,12 @@ export const useRecipeStore = create((set, get) => ({
   deleteRecipe: (id) =>
     set((state) => {
       const updatedRecipes = state.recipes.filter((r) => r.id !== id);
+      // Also remove from favorites if deleted
+      const updatedFavorites = state.favorites.filter((favId) => favId !== id);
       return {
         recipes: updatedRecipes,
         filteredRecipes: filterByTerm(updatedRecipes, state.searchTerm),
+        favorites: updatedFavorites,
       };
     }),
 
@@ -41,17 +46,4 @@ export const useRecipeStore = create((set, get) => ({
       };
     }),
 
-  setSearchTerm: (term) =>
-    set((state) => ({
-      searchTerm: term,
-      filteredRecipes: filterByTerm(state.recipes, term),
-    })),
-
-  setRecipes: (recipes) =>
-    set((state) => ({
-      recipes,
-      filteredRecipes: filterByTerm(recipes, state.searchTerm),
-    })),
-}));
-
-"setSearchTerm", "searchTerm"
+  set
