@@ -53,3 +53,5 @@ export const useRecipeStore = create((set, get) => ({
       filteredRecipes: filterByTerm(recipes, state.searchTerm),
     })),
 }));
+
+"setSearchTerm", "searchTerm"
