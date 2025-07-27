@@ -30,7 +30,11 @@
   "react-router-dom": "^6.x.x",  // ✅ This should now be here
   "zustand": "^4.x.x",
   ...
-}
+   }
+  "dependencies": {
+  "react-router-dom": "^6.23.0", // ✅ version may vary
+  ...
+
 
   }
 }
