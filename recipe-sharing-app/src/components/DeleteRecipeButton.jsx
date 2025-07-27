@@ -1,20 +1,16 @@
-import { useRecipeStore } from '../recipeStore';
+import { useNavigate } from 'react-router-dom'; // ✅ Make sure this is here
+import { useRecipeStore } from '../stores/recipeStore';
 
-const DeleteRecipeButton = ({ recipeId, onDelete }) => {
+const DeleteRecipeButton = ({ recipeId }) => {
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+  const navigate = useNavigate(); // ✅ This is what the error is referring to
 
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this recipe?')) {
-      deleteRecipe(recipeId);
-      if (onDelete) onDelete();
-    }
+    deleteRecipe(recipeId);
+    navigate('/'); // ✅ Navigates back to homepage after deletion
   };
 
-  return (
-    <button onClick={handleDelete} style={{ marginLeft: '1rem', backgroundColor: 'red', color: 'white' }}>
-      Delete Recipe
-    </button>
-  );
+  return <button onClick={handleDelete}>Delete Recipe</button>;
 };
 
 export default DeleteRecipeButton;
